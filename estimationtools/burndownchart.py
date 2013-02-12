@@ -2,7 +2,7 @@ from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from datetime import timedelta
 from genshi.builder import tag
 from estimationtools.utils import parse_options, execute_query, get_estimation_field, get_closed_states, \
-        from_timestamp, get_serverside_charts, EstimationToolsBase
+        from_timestamp, get_serverside_charts, EstimationToolsBase, map_scope_points
 from trac.core import TracError
 from trac.util.html import Markup
 from trac.util.text import unicode_quote, unicode_urlencode
@@ -273,7 +273,7 @@ class BurndownChart(EstimationToolsBase, WikiMacroBase):
         if not estimate:
             return Decimal(0)
         try:
-            return Decimal(estimate)
+            return Decimal(map_scope_points(estimate))
         except (TypeError, ValueError, InvalidOperation):
             # Treat other incorrect values as None
             return None

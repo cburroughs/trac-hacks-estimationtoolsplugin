@@ -1,6 +1,6 @@
 from datetime import timedelta
 from estimationtools.utils import parse_options, execute_query, get_estimation_suffix, get_closed_states, \
-                get_serverside_charts, EstimationToolsBase
+                get_serverside_charts, EstimationToolsBase, map_scope_points
 from genshi.builder import tag
 from trac.util.text import unicode_quote, unicode_urlencode, obfuscate_email_address
 from trac.wiki.macros import WikiMacroBase
@@ -46,7 +46,7 @@ class WorkloadChart(EstimationToolsBase, WikiMacroBase):
             if ticket['status'] in self.closed_states:
                 continue
             try:
-                estimation = float(ticket[self.estimation_field])
+                estimation = float(map_scope_points(ticket[self.estimation_field]))
                 owner = ticket['owner']
                 sum += estimation
                 if estimations.has_key(owner):

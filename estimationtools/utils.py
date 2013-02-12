@@ -163,3 +163,11 @@ def urldecode(query):
             except KeyError:
                 d[k] = [v]
     return d
+
+
+def map_scope_points(val):
+    d = {'n/a': 0, 'large': 7, 'medium': 5, 'small': 1}
+    try:
+        return d[val]
+    except KeyError:
+        return 0
